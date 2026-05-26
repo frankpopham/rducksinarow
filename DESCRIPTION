@@ -1,0 +1,16 @@
+Package: rducksinarow
+Type: Package
+Title: Manage permanent duckdb databases and ducklakes from R
+Version: 0.1.0
+Authors@R: c(
+    person(
+      "Frank", "Popham",
+      email = "frank.popham@protonmail.com",
+      role = c("aut", "cre")
+    )
+  )
+Description: More about what it does (maybe more than one line).
+    Continuation lines should be indented.
+License: What license is it under?
+Encoding: UTF-8
+LazyData: true
