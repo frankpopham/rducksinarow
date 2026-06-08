@@ -3,3 +3,4 @@
 ^\.positai$
 ^\.claude$
 ^README\.qmd$
+^LICENSE\.md$
