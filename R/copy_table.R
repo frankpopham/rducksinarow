@@ -1,13 +1,18 @@
 #' Copy tables within and between databases and ducklakes
 #'
 #' @param connection a duckdb connection
-#' @param from name of new table
-#' @param to name of existing table
+#' @param from name of existing table
+#' @param to name of new table
 #'
 #' @returns NULL (invisibly) but copies a table within or between databases.
 #' @export
 #'
 copy_table <- function(connection, from, to) {
+
+  check_duckdb_connection(connection)
+
+  rlang::check_string(from)
+  rlang::check_string(to)
 
   to_sql <- DBI::SQL(to)
 

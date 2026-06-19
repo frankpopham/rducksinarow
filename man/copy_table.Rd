@@ -9,9 +9,9 @@ copy_table(connection, from, to)
 \arguments{
 \item{connection}{a duckdb connection}
 
-\item{from}{name of new table}
+\item{from}{name of existing table}
 
-\item{to}{name of existing table}
+\item{to}{name of new table}
 }
 \value{
 NULL (invisibly) but copies a table within or between databases.
