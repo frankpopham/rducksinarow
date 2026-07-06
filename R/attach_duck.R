@@ -133,7 +133,7 @@ attach_duck <- function(connection = NULL,
 
   # build
 
-  # database final and ducklake base
+  # database final
 
   if(what == "database" && !encrypt) {
 
@@ -154,11 +154,17 @@ attach_duck <- function(connection = NULL,
                                  .con = temp_con)
   }
 
-  if(what == "ducklake" && file.exists(filename)) {
+  if(what == "ducklake" && file.exists(filename) & override_parquet_directory) {
 
     attach_sql <- glue::glue_sql("{attach_sql_base}, {par_dir},  {par_over}",
                                  .con = temp_con)
     }
+
+  if(what == "ducklake" && file.exists(filename) & !override_parquet_directory) {
+
+    attach_sql <- glue::glue_sql("{attach_sql_base}",
+                                 .con = temp_con)
+  }
 
 
   if(what == "ducklake" && encrypt) {
