@@ -18,4 +18,3 @@ DBI::dbSendQuery(connection, glue::glue_sql("LOAD {i};", .con = connection))
 
 }
 }
-

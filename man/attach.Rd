@@ -17,7 +17,7 @@ attach_duck(
   what = "database",
   type = "duckdb",
   parquet_encrypt = FALSE,
-  parquet_directory = "data_files",
+  parquet_directory = NULL,
   override_parquet_directory = FALSE
 )
 
@@ -83,7 +83,8 @@ tempfilename_2 <- tempfile(pattern = "example_duckdb", fileext = ".ducklake")
 attach_duck(connection = my_con,
                 filename = tempfilename_2,
                 alias = "example2",
-                what = "ducklake")
+                what = "ducklake",
+                parquet_directory = "data_files")
 
 attached_ducks(my_con)
 

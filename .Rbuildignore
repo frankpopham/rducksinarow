@@ -4,3 +4,5 @@
 ^\.claude$
 ^README\.qmd$
 ^LICENSE\.md$
+^[.]?air[.]toml$
+^\.vscode$

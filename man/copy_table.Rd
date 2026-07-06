@@ -2,7 +2,7 @@
 % Please edit documentation in R/copy_table.R
 \name{copy_table}
 \alias{copy_table}
-\title{Copy tables within and between databases and ducklakes}
+\title{Copy tables within and between databases and ducklakes in same process}
 \usage{
 copy_table(connection, from, to)
 }
@@ -17,5 +17,5 @@ copy_table(connection, from, to)
 NULL (invisibly) but copies a table within or between databases.
 }
 \description{
-Copy tables within and between databases and ducklakes
+Copy tables within and between databases and ducklakes in same process
 }

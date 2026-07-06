@@ -37,7 +37,8 @@
 #' attach_duck(connection = my_con,
 #'                 filename = tempfilename_2,
 #'                 alias = "example2",
-#'                 what = "ducklake")
+#'                 what = "ducklake",
+#'                 parquet_directory = "data_files")
 #'
 #' attached_ducks(my_con)
 #'
@@ -60,7 +61,7 @@ attach_duck <- function(connection = NULL,
                         what = "database",
                         type = "duckdb",
                         parquet_encrypt = FALSE,
-                        parquet_directory = "data_files",
+                        parquet_directory = NULL,
                         override_parquet_directory = FALSE) {
 
   if(is.null(connection)) {
@@ -89,6 +90,9 @@ attach_duck <- function(connection = NULL,
   rlang::arg_match(type, values = c("duckdb", "sqlite"))
   if(what == "ducklake" && type == "sqlite" && encrypt) {
     stop("If sqlite is the catalog, encryption of the database is not supported")
+  }
+  if(what == "ducklake" && !file.exists(filename) && is.null(parquet_directory)) {
+    stop("If creating a new ducklake you must give a file storage directory in parquet_directory")
   }
 
   # generate attach code
@@ -134,15 +138,11 @@ attach_duck <- function(connection = NULL,
   if(what == "database" && !encrypt) {
 
     attach_sql <- glue::glue_sql("{attach_sql_base});", .con = temp_con)
-
-  } else if(what == "database" && encrypt) {
+}
+  else if (what == "database" && encrypt) {
 
     attach_sql <- glue::glue_sql("{attach_sql_base}, {enc});", .con = temp_con)
 
-  } else {
-
-    attach_sql <- glue::glue_sql("{attach_sql_base}, {par_over}, {par_dir}",
-                                 .con = temp_con)
   }
 
   # finish ducklake
@@ -150,9 +150,16 @@ attach_duck <- function(connection = NULL,
 
   if(what == "ducklake" && !file.exists(filename)) {
 
-    attach_sql <- glue::glue_sql("{attach_sql}, {par_enc}",
+    attach_sql <- glue::glue_sql("{attach_sql_base}, {par_dir},  {par_enc}",
                                  .con = temp_con)
   }
+
+  if(what == "ducklake" && file.exists(filename)) {
+
+    attach_sql <- glue::glue_sql("{attach_sql_base}, {par_dir},  {par_over}",
+                                 .con = temp_con)
+    }
+
 
   if(what == "ducklake" && encrypt) {
 
@@ -267,10 +274,6 @@ default_duck <- function(connection) {
   invisible(cd)
 
 }
-
-
-
-
 
 
 

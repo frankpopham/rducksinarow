@@ -1,4 +1,4 @@
-#' Copy tables within and between databases and ducklakes
+#' Copy tables within and between databases and ducklakes in same process
 #'
 #' @param connection a duckdb connection
 #' @param from name of existing table
